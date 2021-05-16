@@ -51,9 +51,25 @@ public class Lesson3 {
         int[] array6 = {1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
         findMinAndMax(array6);
 
-        System.out.println("Задача 6");
-        
+        System.out.println("Задача 7");
+        int[] array7 = {2, 2, 2, 1, 2, 2, 10, 1};
+        System.out.println(changeBalance(array7));
+    }
 
+    public static boolean changeBalance (int[] array) {
+        int sumOfLeftPart = 0;
+        int sumOfRightPart = 0;
+        for (int i = 0; i < array.length; i++) {
+            sumOfLeftPart = sumOfLeftPart + array[i];
+            for (int j = i + 1; j < array.length; j++) {
+                sumOfRightPart = sumOfRightPart + array[j];
+            }
+            if (sumOfLeftPart == sumOfRightPart) {
+                return true;
+            }
+            sumOfRightPart = 0;
+        }
+        return false;
     }
 
     public static void findMinAndMax(int[] array) {
