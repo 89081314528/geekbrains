@@ -1,6 +1,7 @@
 package ru.geekbrains.lesson3;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * 1. Задать целочисленный массив, состоящий из элементов 0 и 1. Например: [ 1, 1, 0, 0, 1, 0, 1, 1, 0, 0 ].
@@ -54,9 +55,37 @@ public class Lesson3 {
         System.out.println("Задача 7");
         int[] array7 = {2, 2, 2, 1, 2, 2, 10, 1};
         System.out.println(changeBalance(array7));
+
+        System.out.println("Задача 8");
+        int[] array8 = {1, 2, 3, 4, 5, 6, 7};
+        shift(array8, -3);
     }
 
-    public static boolean changeBalance (int[] array) {
+    public static void shift(int[] array, int shift) {
+        int current;
+        if (shift == 0) {
+        } else if (shift > 0) {
+            for (int i = 0; i < shift; i++) {
+                current = array[array.length - 1];
+                for (int j = 0; j < array.length - 1; j++) {
+                    array[array.length - 1 - j] = array[array.length - 2 - j];
+                }
+                array[0] = current;
+            }
+        } else {
+            shift = shift * (-1);
+            for (int i = 0; i < shift; i++) {
+                current = array[0];
+                for (int j = 0; j < array.length - 1; j++) {
+                    array[j] = array[1 + j];
+                }
+                array[array.length - 1] = current;
+            }
+        }
+        System.out.println(Arrays.toString(array));
+    }
+
+    public static boolean changeBalance(int[] array) {
         int sumOfLeftPart = 0;
         int sumOfRightPart = 0;
         for (int i = 0; i < array.length; i++) {
