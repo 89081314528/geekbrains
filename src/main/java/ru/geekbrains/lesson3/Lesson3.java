@@ -58,13 +58,13 @@ public class Lesson3 {
 
         System.out.println("Задача 8");
         int[] array8 = {1, 2, 3, 4, 5, 6, 7};
-        shift(array8, -3);
+//        shiftVariant1(array8, -3);
+        shiftVariant2(array8,-3);
     }
 
-    public static void shift(int[] array, int shift) {
+    public static void shiftVariant1(int[] array, int shift) {
         int current;
-        if (shift == 0) {
-        } else if (shift > 0) {
+        if (shift > 0) {
             for (int i = 0; i < shift; i++) {
                 current = array[array.length - 1];
                 for (int j = 0; j < array.length - 1; j++) {
@@ -72,7 +72,7 @@ public class Lesson3 {
                 }
                 array[0] = current;
             }
-        } else {
+        } else if (shift < 0) {
             shift = shift * (-1);
             for (int i = 0; i < shift; i++) {
                 current = array[0];
@@ -84,6 +84,38 @@ public class Lesson3 {
         }
         System.out.println(Arrays.toString(array));
     }
+
+    public static void shiftVariant2(int[] array, int shift) {
+        if (shift > 0) {
+            for (int i = 0; i < shift; i++) {
+                for (int j = 0; j < array.length - 1; j++) {
+                    int current = array[j];
+                    int next = array[j + 1];
+                    current = current + next;
+                    next = current - next;
+                    current = current - next;
+                    array[j] = current;
+                    array[j + 1] = next;
+                }
+            }
+        }
+        if (shift < 0) {
+            shift = shift * (-1);
+            for (int i = 0; i < shift; i++) {
+                for (int j = array.length - 1; j > 0; j--) {
+                    int current = array[j];
+                    int next = array[j - 1];
+                    current = current + next;
+                    next = current - next;
+                    current = current - next;
+                    array[j] = current;
+                    array[j - 1] = next;
+                }
+            }
+        }
+        System.out.println(Arrays.toString(array));
+    }
+
 
     public static boolean changeBalance(int[] array) {
         int sumOfLeftPart = 0;
