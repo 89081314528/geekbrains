@@ -58,8 +58,8 @@ public class Lesson3 {
 
         System.out.println("Задача 8");
         int[] array8 = {1, 2, 3, 4, 5, 6, 7};
-//        shiftVariant1(array8, -3);
-        shiftVariant2(array8,-3);
+//        shiftVariant1(array8, -4);
+        shiftVariant2(array8,4);
     }
 
     public static void shiftVariant1(int[] array, int shift) {
