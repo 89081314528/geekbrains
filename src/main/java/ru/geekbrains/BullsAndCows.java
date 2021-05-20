@@ -1,9 +1,9 @@
 package ru.geekbrains;
 
 /**
- * 1.
+ * Быки и коровы
  */
-public class Examples1 {
+public class BullsAndCows {
     public static void main(String[] args) {
 
     }
