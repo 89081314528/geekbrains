@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class Shift {
     public static void main(String[] args) {
         int[] array = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-        int shift = 4;
+        int shift = 7;
         int i = 0;
         int current = array[0];
         do {
