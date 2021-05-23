@@ -11,10 +11,9 @@ public class Lesson4 {
     final static char CELL_O = 'O';
 
     public static void main(String[] args) {
-        field = createField();     //createField(size, EMPTY); что будет если написать без =
+        field = createField();
         printField();
         play();
-
     }
 
     public static void play() {
@@ -52,21 +51,42 @@ public class Lesson4 {
                 if (field[i][j] == cell) {
                     countRow = countRow + 1;
                 }
-                if (field[j][i] == cell) {
-                    countColumn = countColumn + 1;
-                }
-                if (field[i][j] == cell && i == j) {
-                    countDiagonal1 = countDiagonal1 + 1;
-                }
-                if (field[i][j] == cell && i + j == 2) {
-                    countDiagonal2 = countDiagonal2 + 1;
-                }
-                if (countRow == 3 || countColumn == 3 || countDiagonal1 == 3 || countDiagonal2 == 3) {
+                if (countRow == 3) {
                     return true;
                 }
             }
             countRow = 0;
+        }
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (field[j][i] == cell) {
+                    countColumn = countColumn + 1;
+                }
+                if (countColumn == 3) {
+                    return true;
+                }
+            }
             countColumn = 0;
+        }
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (field[i][j] == cell && i == j) {
+                    countDiagonal1 = countDiagonal1 + 1;
+                }
+                if (countDiagonal1 == 3) {
+                    return true;
+                }
+            }
+        }
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (field[i][j] == cell && i + j == 2) {
+                    countDiagonal2 = countDiagonal2 + 1;
+                }
+                if (countDiagonal2 == 3) {
+                    return true;
+                }
+            }
         }
         return false;
     }
@@ -124,7 +144,6 @@ public class Lesson4 {
                 }
             }
         }
-
         int x;                                 // если нет возможности выиграть или не надо блокировать, ходит рандомно
         int y;
         do {
@@ -133,9 +152,8 @@ public class Lesson4 {
             y = (int) (Math.random() * (SIZE));
         }
         while (!isCellValid(x, y));
-
-        field[x][y] = CELL_O;
         System.out.println("Ходит рандомно");
+        field[x][y] = CELL_O;
     }
 
 
