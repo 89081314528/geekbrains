@@ -1,6 +1,7 @@
 package ru.geekbrains.lesson6;
 
 public class Cat extends Animal{
+    public static final int MAX_RUN_DISTANCE = 200;
     private static int countCats;
 
     public static void getCountCats() {
@@ -14,7 +15,7 @@ public class Cat extends Animal{
 
     @Override
     public void run(int distance) {
-    if (distance > 200) {
+    if (distance > MAX_RUN_DISTANCE) {
         System.out.println("Кот не пробежит " + distance + " метров");
     } else {
         System.out.println("Кот " + getName() + " пробежал " + distance + " метров");
