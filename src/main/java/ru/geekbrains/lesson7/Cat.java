@@ -7,11 +7,9 @@ public class Cat {
     private final int appetite;
     private boolean full = false;
 
-
     public String getName() {
         return name;
     }
-
     public boolean isFull() {
         return full;
     }

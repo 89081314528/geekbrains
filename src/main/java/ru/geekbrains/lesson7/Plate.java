@@ -17,4 +17,8 @@ public class Plate {
         System.out.println("plate: " + food);
     }
 
+    public void addFood(int n) {
+        food = food + n;
+    }
+
 }

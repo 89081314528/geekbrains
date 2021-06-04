@@ -27,11 +27,13 @@ public class Lesson7 {
         }
         for (Cat cat : cats) {
             if (cat.isFull()) {
-                System.out.println("Кот сыт " + cat.getName());
+                System.out.println("Кот " + cat.getName() + " сыт");
+            } else {
+                System.out.println("Кот " + cat.getName() + " голоден");
             }
-
         }
+        plate.addFood(100);
+        plate.info();
     }
 }
-
 
