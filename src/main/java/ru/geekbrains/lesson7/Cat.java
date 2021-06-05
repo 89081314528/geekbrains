@@ -25,6 +25,9 @@ public class Cat {
         public void eat(Plate p) {
             if (appetite > p.getFood()) {
                 System.out.println("Кот " + name + " не может есть из тарелки");
+            }
+            else if (full == true) {
+                System.out.println("Кот " + name + " сыт и не будет есть из тарелки");
             } else {
                 p.decreaseFood(appetite);
                 System.out.println("Кот " + name + " поел из тарелки");

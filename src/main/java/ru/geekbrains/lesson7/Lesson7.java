@@ -34,6 +34,7 @@ public class Lesson7 {
         }
         plate.addFood(100);
         plate.info();
+        cats[1].eat(plate);
     }
 }
 

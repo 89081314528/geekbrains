@@ -11,7 +11,12 @@ public class Plate {
         this.food = food;
     }
     public void decreaseFood(int n) {
+        if (n > food) {
+            System.out.println("В тарелке нет столько еды");
+            return;
+        } else {
             food = food - n;
+        }
     }
     public void info() {
         System.out.println("plate: " + food);
