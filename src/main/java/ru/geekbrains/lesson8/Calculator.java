@@ -6,9 +6,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-
 import static java.lang.Integer.parseInt;
 
+/**
+ * list.get(i + 1); next
+ * list.get(i); current
+ * i = i + 1 нельзя
+ */
 public class Calculator extends JFrame {
     private String text = "";
     public Calculator() {
