@@ -6,15 +6,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+
 import static java.lang.Integer.parseInt;
 
 /**
- * list.get(i + 1); next
- * list.get(i); current
- * i = i + 1 нельзя
+ * Нет приоритета у умножения и деления. 5 + 5 * 2 = 20. Будет выполнять все действия по порядку.
  */
 public class Calculator extends JFrame {
     private String text = "";
+
     public Calculator() {
         setTitle("Calculator");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -26,7 +26,7 @@ public class Calculator extends JFrame {
         screen.setHorizontalAlignment(SwingConstants.CENTER);
         add(screen, BorderLayout.CENTER);
 
-        setLayout(new GridLayout(6,3));
+        setLayout(new GridLayout(6, 3));
         JButton plus = new JButton("+");
         JButton minus = new JButton("-");
         JButton multiply = new JButton("*");
@@ -45,8 +45,8 @@ public class Calculator extends JFrame {
         JButton eight = new JButton("8");
         JButton nine = new JButton("9");
 
-        JButton [] buttons = {plus, minus, multiply, devide, delete, eraseAll, equals,zero,one,two,
-        three,four, five, six, seven, eight, nine};
+        JButton[] buttons = {plus, minus, multiply, devide, delete, eraseAll, equals, zero, one, two,
+                three, four, five, six, seven, eight, nine};
         for (int i = 0; i < buttons.length; i++) {
             add(buttons[i]);
         }
@@ -68,6 +68,8 @@ public class Calculator extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (text.equals("")) {
+                    text = text + "-";
+                    screen.setText(String.valueOf(text));
                 } else {
                     String lastChar = text.substring(text.length() - 1);
                     if (!lastChar.equals("+") && !lastChar.equals("-") && !lastChar.equals("*") && !lastChar.equals("/")) {
@@ -196,8 +198,11 @@ public class Calculator extends JFrame {
                     List<String> list = new ArrayList<>();
                     String part = "";
                     for (int i = 0; i < text.length(); i++) {
-                        String current = text.substring(i, i + 1);   // дописать, если первый знак минус, то число отрицательное, чтобы можно было нажимать равно
-                        // сейчас нельзя внести отрицательное число и проводить операции с отрицательными числами
+                        String current = text.substring(i, i + 1);
+                        if (current.equals("-") && i == 0) {
+                            part = "-";
+                            continue;
+                        }
                         if (!current.equals("+") && !current.equals("-") && !current.equals("/") &&
                                 !current.equals("*")) {
                             part = part + current;
@@ -211,17 +216,18 @@ public class Calculator extends JFrame {
                         }
                     }
                     int result = parseInt(list.get(0));
-                    for (int i = 1; i < list.size() - 1; i++) {
-                        if (list.get(i).equals("+")) {
-                            result = result + parseInt(list.get(i + 1));
-                        } else if (list.get(i).equals("-")) {
-                            result = result - parseInt(list.get(i + 1));
-                        } else if (list.get(i).equals("*")) {
-                            result = result * parseInt(list.get(i + 1));
-                        } else if (list.get(i).equals("/")) {
-                            result = result / parseInt(list.get(i + 1));
+                    for (int i = 1; i < list.size() - 1; i = i + 2) {
+                        String current = list.get(i);
+                        String next = list.get(i + 1);
+                        if (current.equals("+")) {
+                            result = result + parseInt(next);
+                        } else if (current.equals("-")) {
+                            result = result - parseInt(next);
+                        } else if (current.equals("*")) {
+                            result = result * parseInt(next);
+                        } else if (current.equals("/")) {
+                            result = result / parseInt(next);
                         }
-                        i = i + 1;
                     }
                     screen.setText(String.valueOf(result));
                     text = Integer.toString(result);
