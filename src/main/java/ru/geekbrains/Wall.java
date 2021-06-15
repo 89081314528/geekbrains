@@ -1,7 +1,10 @@
 package ru.geekbrains;
 
 public class Wall {
- void creatureJump(Creature creature) {
+    public int height;
 
- }
+    public Wall(int height) {
+        this.height = height;
+    }
+
 }

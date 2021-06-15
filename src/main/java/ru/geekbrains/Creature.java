@@ -1,6 +1,6 @@
 package ru.geekbrains;
 
 public interface Creature {
-    void jump();
-    void run();
+    void jump(Wall wall);
+    void run(TreadMill treadMill);
 }
