@@ -1,6 +1,6 @@
 package ru.geekbrains;
 
-public class TreadMill {
+public class TreadMill implements Barrier{
     int length;
 
     public TreadMill(int length) {

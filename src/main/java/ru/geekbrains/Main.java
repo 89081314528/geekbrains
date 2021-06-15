@@ -13,6 +13,36 @@ package ru.geekbrains;
  */
 public class Main {
     public static void main(String[] args) {
-
+        Barrier[] obstacleCourse = {
+                new Wall(2),
+                new TreadMill(300),
+                new Wall(3),
+                new TreadMill(3000),
+                new Wall(5),
+                new TreadMill(30000),
+                new Wall(10)
+        };
+        Creature[] creatures = {
+                new Cat("Pushok"),
+                new Human("Petya"),
+                new Robot("Valley")
+        };
+        for (Creature creature : creatures) {
+            for (Barrier barrier : obstacleCourse) {
+                if (barrier instanceof Wall) {
+                    creature.jump((Wall) barrier);
+                    if (!creature.isJumpSussecc()) {
+                        break;
+                    }
+                } else {
+                    if (barrier instanceof TreadMill) {
+                        creature.run((TreadMill) barrier);
+                    }
+                    if (!creature.isRunSussecc()) {
+                        break;
+                    }
+                }
+            }
+        }
     }
 }
