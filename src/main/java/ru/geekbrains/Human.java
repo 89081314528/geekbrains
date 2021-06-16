@@ -2,6 +2,11 @@ package ru.geekbrains;
 
 public class Human implements Creature {
     final String name;
+
+    public String getName() {
+        return name;
+    }
+
     public static final int MAX_RUN_DISTANCE = 3000;
     public static final int MAX_JUMP_DISTANCE = 3;
     boolean isJump = true;

@@ -2,6 +2,11 @@ package ru.geekbrains;
 
 public class Cat implements Creature {
     final String name;
+
+    public String getName() {
+        return name;
+    }
+
     public static final int MAX_RUN_DISTANCE = 300;
     public static final int MAX_JUMP_DISTANCE = 2;
     boolean isJump = true;

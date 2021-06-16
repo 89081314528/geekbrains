@@ -3,6 +3,10 @@ package ru.geekbrains;
 public class Robot implements Creature {
     final String name;
 
+    public String getName() {
+        return name;
+    }
+
     public Robot(String name) {
         this.name = name;
     }
