@@ -1,10 +1,16 @@
 package ru.geekbrains;
 
 public class Wall implements Barrier{
-    public int height;
+    public int size;
 
-    public Wall(int height) {
-        this.height = height;
+    public Wall(int size) {
+        this.size = size;
     }
 
+    @Override
+    public void path(Creature creature) {
+        if (size > creature.getMaxJumpDistance()) {
+            creature.setOverride(false);
+        }
+    }
 }

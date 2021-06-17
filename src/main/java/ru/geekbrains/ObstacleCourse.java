@@ -8,20 +8,11 @@ public class ObstacleCourse {
     }
 
     public void go(Team team) {
-        for (Creature creature : team.creatures) {
+        for (Creature creature : team.getCreatures()) {
             for (Barrier barrier : barrier) {
-                if (barrier instanceof Wall) {
-                    creature.jump((Wall) barrier);
-                    if (!creature.isJumpSussecc()) {
-                        break;
-                    }
-                } else {
-                    if (barrier instanceof TreadMill) {
-                        creature.run((TreadMill) barrier);
-                    }
-                    if (!creature.isRunSussecc()) {
-                        break;
-                    }
+                barrier.path(creature);
+                if (!creature.isOverride()) {
+                    break;
                 }
             }
         }

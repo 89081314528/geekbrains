@@ -1,9 +1,9 @@
 package ru.geekbrains;
 
 public interface Creature {
-    public String getName();
-    void jump(Wall wall);
-    void run(TreadMill treadMill);
-    boolean isJumpSussecc();
-    boolean isRunSussecc();
+    String getName();
+    int getMaxRunDistance();
+    int getMaxJumpDistance();
+    void setOverride(boolean override);
+    boolean isOverride();
 }
