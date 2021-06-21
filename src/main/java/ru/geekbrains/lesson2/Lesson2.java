@@ -17,7 +17,7 @@ package ru.geekbrains.lesson2;
  */
 public class Lesson2 {
     public static void main(String[] args) {
-        String[][] arr = {{"1", "1", "1", "1"}, {"1", "1", "1", "1"}, {"1", "1", "1", "1"}, {"1", "1", "1", "1"}};
+        String[][] arr = {{"1", "1", "1", "1"}, {"1", "1", "1", "1"}, {"1", "1", "1", "1"}, {"1", "1", "1", "зз"}};
         try {
             System.out.println(sum(arr));
         } catch (MyArraySizeException | MyArrayDataException e) {
@@ -29,16 +29,16 @@ public class Lesson2 {
         Integer sum = 0;
         for (int i = 0; i < arr.length; i++) {
             if (arr.length != 4) {
-                throw new MyArraySizeException("Длина массива должна быть 2");
+                throw new MyArraySizeException("Длина массива должна быть 4");
             }
             for (int j = 0; j < arr[i].length; j++) {
                 if (arr[i].length != 4) {
-                    throw new MyArraySizeException("Длина массива должна быть 2");
+                    throw new MyArraySizeException("Длина массива должна быть 4");
                 }
                 try {
                     sum = sum + Integer.parseInt(arr[i][j]);
                 } catch (NumberFormatException e) {
-                    throw new MyArrayDataException("Строка не преобразуется в число");
+                    throw new MyArrayDataException("Элемент в " + (i + 1) + " строке " + (j + 1) + " столбце не преобразуется в число");
                 }
             }
         }
