@@ -10,13 +10,38 @@ package ru.geekbrains.lesson2;
  * 3. В методе main() вызвать полученный метод, обработать возможные исключения MyArraySizeException и
  * MyArrayDataException и вывести результат расчета (сумму элементов, при условии что подали на вход
  * корректный массив).
- * Заметка: Для преобразования строки к числу используйте статический метод класса Integer:
- * Integer.parseInt(сюда_подать_строку);
+ * Заметка: Для преобразования строки к числу используйте статический метод класса Integer: Integer.parseInt
+ * (сюда_подать_строку);
  * Заметка: Если Java не сможет преобразовать входную строку (в строке число криво написано),
  * то будет сгенерировано исключение NumberFormatException.
  */
 public class Lesson2 {
     public static void main(String[] args) {
+        String[][] arr = {{"1", "1", "1", "1"}, {"1", "1", "1", "1"}, {"1", "1", "1", "1"}, {"1", "1", "1", "1"}};
+        try {
+            System.out.println(sum(arr));
+        } catch (MyArraySizeException | MyArrayDataException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public static Integer sum(String[][] arr) {
+        Integer sum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr.length != 4) {
+                throw new MyArraySizeException("Длина массива должна быть 2");
+            }
+            for (int j = 0; j < arr[i].length; j++) {
+                if (arr[i].length != 4) {
+                    throw new MyArraySizeException("Длина массива должна быть 2");
+                }
+                try {
+                    sum = sum + Integer.parseInt(arr[i][j]);
+                } catch (NumberFormatException e) {
+                    throw new MyArrayDataException("Строка не преобразуется в число");
+                }
+            }
+        }
+        return sum;
     }
 }
