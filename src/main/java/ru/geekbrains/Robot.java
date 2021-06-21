@@ -2,8 +2,8 @@ package ru.geekbrains;
 
 public class Robot implements Creature {
     final String name;
-    public static final int MAX_RUN_DISTANCE = 30000;
-    public static final int MAX_JUMP_DISTANCE = 5;
+    private final int MAX_RUN_DISTANCE = 30000;
+    private final int MAX_JUMP_DISTANCE = 5;
     boolean isOverride = true;
 
     public Robot(String name) {

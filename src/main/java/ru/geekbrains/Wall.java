@@ -1,7 +1,7 @@
 package ru.geekbrains;
 
 public class Wall implements Barrier{
-    public int size;
+    private int size;
 
     public Wall(int size) {
         this.size = size;
@@ -9,7 +9,8 @@ public class Wall implements Barrier{
 
     @Override
     public void path(Creature creature) {
-        if (size > creature.getMaxJumpDistance()) {
+        if (size > creature.getMaxJumpDistance()) {//существо прыгает, а этот код перенести в метод прыгает
+            // в существе
             creature.setOverride(false);
         }
     }

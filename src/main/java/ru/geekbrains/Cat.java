@@ -2,8 +2,8 @@ package ru.geekbrains;
 
 public class Cat implements Creature {
     final String name;
-    public static final int MAX_RUN_DISTANCE = 300;
-    public static final int MAX_JUMP_DISTANCE = 2;
+    private final int MAX_RUN_DISTANCE = 300;
+    private final int MAX_JUMP_DISTANCE = 2;
     boolean isOverride = true;
 
     public Cat(String name) {
