@@ -2,7 +2,6 @@ package ru.geekbrains.lesson3;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,18 +31,17 @@ public class Lesson3 {
         }
 
 
-        Directory directory = new Directory();
+        Dictionary directory = new Dictionary();
         directory.add("Иванов", 123);
         directory.add("Петров", 222);
         directory.add("Сидоров", 333);
         directory.add("Иванов", 556);
         directory.add("Сидоров", 667);
 
-        for (Map.Entry<String, ArrayList<Integer>> entry : directory.getDirectory().entrySet()) {
+        for (Map.Entry<String, ArrayList<Integer>> entry : directory.getDictionary().entrySet()) {
             System.out.println(entry.getKey() + entry.getValue());
         }
 
-        System.out.println(directory.getDirectory().get("Иванов"));
-        System.out.println(directory.get("Сидоров"));
+        System.out.println(directory.get("Сидоров"));// убрать геттер переименовать в директори
     }
 }
