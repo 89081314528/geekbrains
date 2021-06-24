@@ -1,7 +1,7 @@
 package ru.geekbrains.lesson2;
 
 public class MyArraySizeException extends RuntimeException{
-    public MyArraySizeException(String message) {
-        super(message);
+    public MyArraySizeException(int length) {
+        super("Размер массива должен быть " + length + " x " + length);
     }
 }

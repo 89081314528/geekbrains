@@ -16,8 +16,12 @@ package ru.geekbrains.lesson2;
  * то будет сгенерировано исключение NumberFormatException.
  */
 public class Lesson2 {
+
+    public static final int LENGTH = 4;
+
     public static void main(String[] args) {
-        String[][] arr = {{"1", "1", "1", "1"}, {"1", "1", "1", "1"}, {"1", "1", "1", "1"}, {"1", "1", "1", "зз"}};
+        String[][] arr = {{"1", "1", "1", "1"}, {"pp", "1", "1", "1"},
+                {"1", "1", "1", "1"}, {"1", "1", "1", "1"}};
         try {
             System.out.println(sum(arr));
         } catch (MyArraySizeException | MyArrayDataException e) {
@@ -28,17 +32,17 @@ public class Lesson2 {
     public static Integer sum(String[][] arr) {
         Integer sum = 0;
         for (int i = 0; i < arr.length; i++) {
-            if (arr.length != 4) {
-                throw new MyArraySizeException("Длина массива должна быть 4");
+            if (arr.length != LENGTH) {
+                throw new MyArraySizeException(LENGTH);
             }
             for (int j = 0; j < arr[i].length; j++) {
-                if (arr[i].length != 4) {
-                    throw new MyArraySizeException("Длина массива должна быть 4");
+                if (arr[i].length != LENGTH) {
+                    throw new MyArraySizeException(LENGTH);
                 }
                 try {
                     sum = sum + Integer.parseInt(arr[i][j]);
                 } catch (NumberFormatException e) {
-                    throw new MyArrayDataException("Элемент в " + (i + 1) + " строке " + (j + 1) + " столбце не преобразуется в число");
+                    throw new MyArrayDataException(i,j);
                 }
             }
         }
