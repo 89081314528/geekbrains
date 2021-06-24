@@ -31,17 +31,17 @@ public class Lesson3 {
         }
 
 
-        Dictionary directory = new Dictionary();
+        Directory directory = new Directory();
         directory.add("Иванов", 123);
         directory.add("Петров", 222);
         directory.add("Сидоров", 333);
         directory.add("Иванов", 556);
         directory.add("Сидоров", 667);
 
-        for (Map.Entry<String, ArrayList<Integer>> entry : directory.getDictionary().entrySet()) {
+        for (Map.Entry<String, ArrayList<Integer>> entry : directory.getDirectory().entrySet()) {
             System.out.println(entry.getKey() + entry.getValue());
         }
 
-        System.out.println(directory.get("Сидоров"));// убрать геттер переименовать в директори
+        System.out.println(directory.get("Сидоров"));
     }
 }
