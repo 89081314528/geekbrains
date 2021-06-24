@@ -1,6 +1,6 @@
 package ru.geekbrains;
 
-public class TreadMill implements Barrier{
+public class TreadMill implements Barrier {
     private int size;
 
     public TreadMill(int size) {
@@ -8,9 +8,12 @@ public class TreadMill implements Barrier{
     }
 
     @Override
-    public void path(Creature creature) {
-        if (size > creature.getMaxRunDistance()) {
-            creature.setOverride(false);
-        }
+    public void pass(Creature creature) {
+        creature.run(this);
+    }
+
+    @Override
+    public int getSize() {
+        return size;
     }
 }

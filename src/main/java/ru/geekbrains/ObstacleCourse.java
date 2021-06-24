@@ -10,7 +10,7 @@ public class ObstacleCourse {
     public void go(Team team) {
         for (Creature creature : team.getCreatures()) {
             for (Barrier barrier : barrier) {
-                barrier.path(creature);
+                barrier.pass(creature);
                 if (!creature.isOverride()) {
                     break;
                 }

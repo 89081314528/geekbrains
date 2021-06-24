@@ -6,4 +6,6 @@ public interface Creature {
     int getMaxJumpDistance();
     void setOverride(boolean override);
     boolean isOverride();
+    void jump(Barrier barrier);
+    void run(Barrier barrier);
 }

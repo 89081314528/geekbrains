@@ -9,7 +9,18 @@ public class Human implements Creature {
     public Human(String name) {
         this.name = name;
     }
-
+    @Override
+    public void run(Barrier barrier) {
+        if (barrier.getSize() > MAX_RUN_DISTANCE) {
+            setOverride(false);
+        }
+    }
+    @Override
+    public void jump(Barrier barrier){
+        if (barrier.getSize() > MAX_JUMP_DISTANCE) {
+            setOverride(false);
+        }
+    }
     @Override
     public String getName() {
         return name;
