@@ -48,7 +48,7 @@ public class Lesson5 {
     public static void main(String[] args) throws InterruptedException {
         float[] arr = new float[size];
         for (float v : arr) {
-            v = 1;
+            v = 1.0f;
 
         }
         method1(arr);
