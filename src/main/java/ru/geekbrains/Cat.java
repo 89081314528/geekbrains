@@ -9,36 +9,24 @@ public class Cat implements Creature {
     public Cat(String name) {
         this.name = name;
     }
+
     @Override
     public void run(Barrier barrier) {
         if (barrier.getSize() > MAX_RUN_DISTANCE) {
-            setOverride(false);
+            isOverride = false;
         }
-    }
-    @Override
-    public void jump(Barrier barrier){
-        if (barrier.getSize() > MAX_JUMP_DISTANCE) {
-            setOverride(false);
-        }
-    }
-    @Override
-    public int getMaxRunDistance() {
-        return MAX_RUN_DISTANCE;
     }
 
     @Override
-    public int getMaxJumpDistance() {
-        return MAX_JUMP_DISTANCE;
+    public void jump(Barrier barrier) {
+        if (barrier.getSize() > MAX_JUMP_DISTANCE) {
+            isOverride = false;
+        }
     }
 
     @Override
     public boolean isOverride() {
         return isOverride;
-    }
-
-    @Override
-    public void setOverride(boolean override) {
-        isOverride = override;
     }
 
     @Override

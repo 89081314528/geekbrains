@@ -9,36 +9,24 @@ public class Robot implements Creature {
     public Robot(String name) {
         this.name = name;
     }
+
     @Override
     public void run(Barrier barrier) {
         if (barrier.getSize() > MAX_RUN_DISTANCE) {
-            setOverride(false);
+            isOverride = false;
         }
     }
+
     @Override
-    public void jump(Barrier barrier){
+    public void jump(Barrier barrier) {
         if (barrier.getSize() > MAX_JUMP_DISTANCE) {
-            setOverride(false);
+            isOverride = false;
         }
     }
+
     @Override
     public String getName() {
         return name;
-    }
-
-    @Override
-    public int getMaxRunDistance() {
-        return MAX_RUN_DISTANCE;
-    }
-
-    @Override
-    public int getMaxJumpDistance() {
-        return MAX_JUMP_DISTANCE;
-    }
-
-    @Override
-    public void setOverride(boolean override) {
-        isOverride = override;
     }
 
     @Override
