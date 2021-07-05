@@ -11,7 +11,7 @@ public class EchoServer {
     public static void main(String[] args) {
         System.out.println("Сервер запущен, ожидаем подключения...");
         try (ServerSocket serverSocket = new ServerSocket(8189);
-             Socket socket = serverSocket.accept(); // socket, in, out новые для каждого клиента (делать в цикле)
+             Socket socket = serverSocket.accept();
              DataInputStream in = new DataInputStream(socket.getInputStream());
              DataOutputStream out = new DataOutputStream(socket.getOutputStream());
         ) {
@@ -35,6 +35,9 @@ public class EchoServer {
 
             while (true) {
                 String strIn = in.readUTF();
+                if (strIn.equals("/end")) {
+                    break;
+                }
                 System.out.println("Клиент:" + strIn);
             }
         } catch (IOException e) {

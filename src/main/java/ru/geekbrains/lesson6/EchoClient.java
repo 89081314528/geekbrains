@@ -6,52 +6,63 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
 
-// нельзя делать 2 потока - для принятия и отправки сообщений, так как программа завершится. надо объявлять их демонами
+// нельзя делать 2 потока - для принятия и отправки сообщений, так как программа завершится. надо объявить их демонами
 public class EchoClient {
     private final String SERVER_ADDR = "localhost";
     private final int SERVER_PORT = 8189;
     private Socket socket;
     private DataInputStream in;
-    private DataOutputStream out;//если изменить переменную в методе, она изменится здесь
+    private DataOutputStream out;
     private Scanner scanner;
 
     public static void main(String[] args) {
         EchoClient echoClient = new EchoClient();
-        echoClient.openConnection();//потом вызываем startReadMessages, потом sendMessages(), так как там бесконечный цикл
+        echoClient.openConnection();
+        echoClient.startReadMessages();
+        echoClient.sendMessages();
     }
 
     public EchoClient() {
         scanner = new Scanner(System.in);
         openConnection();
-        while (true) {               //лучше вызывать сдесь и поместить в отдельный метод sendMessages();
-            sendMessage();           // нельзя вызывать бесконечный цикл в конструкторе
+        startReadMessages();
+        sendMessages();
+    }
+
+    public void sendMessages() {
+        while (true) {               //лучше поместить в отдельный метод sendMessages();, нежелательно вызывать бесконечный цикл в конструкторе
+            sendMessage();
         }
     }
 
+    public void startReadMessages() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while (true) {
+                        String strIn = in.readUTF();
+                        if (strIn.equals("/end")) {
+                            break;
+                        }
+                        System.out.println("Сервер:" + strIn);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    closeConnection();
+                }
+            }
+        }).start();
+    }
     public void openConnection() {
         try {
             socket = new Socket(SERVER_ADDR, SERVER_PORT);
             in = new DataInputStream(socket.getInputStream());
-            out = new DataOutputStream(socket.getOutputStream());// не должна ли эта строка быть в методе sendMessage()?нет
-            new Thread(new Runnable() { // нет, так как каждый раз при вызове sendMessage(); будет создаваться новый объект
-                @Override
-                public void run() { //startReadMessages назвать метод
-                    try {
-                        while (true) {
-                            String strIn = in.readUTF();
-                            System.out.println("Сервер:" + strIn);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    } finally {
-                        closeConnection();
-                    }
-                }
-            }).start();
-
+            out = new DataOutputStream(socket.getOutputStream());// эту строка не должна быть в методе sendMessage().так как каждый раз при вызове sendMessage(); будет создаваться новый объект
         } catch (Exception e) {
             e.printStackTrace();
-            closeConnection();//!!!!!!!
+            closeConnection();
             throw new RuntimeException(e);
         }
     }
@@ -64,7 +75,7 @@ public class EchoClient {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } // здесь не нужен closeConnection(), так как сообщение пишет пользователь и он может сделать ошибку и может отправить сообщение еще раз
+        } // здесь не нужен closeConnection(), так как сообщение пишет пользователь, он может сделать ошибку и может отправить сообщение еще раз
     }
 
     public void closeConnection() {
