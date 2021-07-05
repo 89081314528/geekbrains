@@ -24,9 +24,8 @@ public class Lesson5 {
 
     public static void main(String[] args) throws InterruptedException {
         float[] arr = new float[size];
-        for (float v : arr) {
-            v = 1.0f;
-
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = 1.0f;
         }
         method1(arr);
         method2(arr);
@@ -49,14 +48,10 @@ public class Lesson5 {
         System.arraycopy(arr, h, arr2, 0, h);
 
         Thread thread1 = new Thread(() -> {
-            for (int i = 0; i < arr1.length; i++) {
-                arr1[i] = (float) (arr1[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
-            }
+            changeMassive(arr1);
         });
         Thread thread2 = new Thread(() -> {
-            for (int i = 0; i < arr2.length; i++) {
-                arr2[i] = (float) (arr2[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
-            }
+            changeMassive(arr2);
         });
         thread1.start();
         thread2.start();
@@ -67,5 +62,11 @@ public class Lesson5 {
         System.arraycopy(arr2, 0, arr, h, h);
         long finishTime = System.currentTimeMillis();
         System.out.println("Время выполнения метода2 (с использованием потоков) " + (finishTime - startTime));
+    }
+
+    private static void changeMassive(float[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = (float) (arr[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
+        }
     }
 }
