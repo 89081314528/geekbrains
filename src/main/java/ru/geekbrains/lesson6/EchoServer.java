@@ -20,7 +20,7 @@ public class EchoServer {
                 @Override
                 public void run() {
                         while (true) {
-                            Scanner scanner = new Scanner(System.in);
+                            Scanner scanner = new Scanner(System.in); // не надо убрать из цикла?
                             String strOut = scanner.nextLine();
                             if (!strOut.isEmpty()) {
                                 try {
