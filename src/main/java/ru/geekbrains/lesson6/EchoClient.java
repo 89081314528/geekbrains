@@ -24,9 +24,6 @@ public class EchoClient {
 
     public EchoClient() {
         scanner = new Scanner(System.in);
-        openConnection();
-        startReadMessages();
-        sendMessages();
     }
 
     public void sendMessages() {
