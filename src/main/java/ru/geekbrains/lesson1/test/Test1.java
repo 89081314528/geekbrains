@@ -14,6 +14,7 @@ public class Test1 {
         change(list); // инвариантность - тип листа нужно использовать такой же, как в методе
         // если в методе напишем public static void change(List<Object> list) {} - не будет работать
         System.out.println(list);
+        print(list);
 
     }
 
@@ -28,6 +29,10 @@ public class Test1 {
         String next = list.get(1);
         list.set(0,next);
         list.set(1,current);
+    }
+
+    public static void print(List <? extends Object> list) { // wildcard позволяет добавлять в метод любой лист
+        System.out.println("print");
     }
     // правильно делать параметризованные методы:
 //        public static <T> void change(T [] array) {
