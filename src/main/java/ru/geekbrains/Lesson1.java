@@ -15,35 +15,23 @@ import java.util.List;
  * Написать метод, который позволяет пересыпать фрукты из текущей коробки в другую. Помним про сортировку фруктов: нельзя яблоки высыпать в коробку с апельсинами. Соответственно, в текущей коробке фруктов не остается, а в другую перекидываются объекты, которые были в первой;
  * Не забываем про метод добавления фрукта в коробку.
  */
+
 public class Lesson1 {
     public static void main(String[] args) {
         String[] array = {"cat", "dog"};
-        change(array); //ковариантность - в массиве можно использовать классы-наследники, в дженериках это сделать нельзя
-        List <String> list = new ArrayList<>();
-        list.add("pig");
-        list.add("snake");
-        change(list); // инвариантность - тип листа нужно использовать такой же, как в методе
-        // если в методе напишем public static void change(List<Object> list) {} - не будет работать
-        System.out.println(list);
+        change(array);
         System.out.println(convertArrayToList(array));
+        Apple apple = new Apple();
+
     }
 
-    public static <T> void change(T [] array) { // если сделать массив обджектов, то в методе в качестве аргумента можно
-        // использовать классы-наследники, например, стринг
+    public static <T> void change(T [] array) {
         T current = array[0];
         array[0] = array[1];
         array[1] = current;
     }
-    public static <T> void change(List<T> list) { // если сделать лист обджектов, и вызвать метод с аргументом лист строк
-        // программа не будет работать
-        T current = list.get(0);
-        T next = list.get(1);
-        list.set(0,next);
-        list.set(1,current);
-    }
 
-
-    public static <T> ArrayList convertArrayToList(T [] massive) {
+    public static <T> ArrayList <T> convertArrayToList(T [] massive) {
         ArrayList <T> list = new ArrayList<>();
         for (T o : massive) {
             list.add(o);
