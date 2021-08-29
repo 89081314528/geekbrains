@@ -1,27 +1,31 @@
 package ru.geekbrains;
-
 import java.util.ArrayList;
-
 public class Box <T extends Fruit> {
-    final ArrayList<T> fruitBox; // обязательно final?
+    final ArrayList<T> fruitBox;
+    Class fruitClass;
 
-    public Box(ArrayList<T> fruitBox) {
-        this.fruitBox = fruitBox;
-    }
-    
-    public void add (T fruit) { // можно проверять тип каждого добавленного фрукта и кидать исключение,
-        // если он не совпадает с первым добавленным
-        fruitBox.add(fruit);
+    public Box() {
+        this.fruitBox = new ArrayList<>();
     }
 
+    public void add (T fruit) {
+        if (fruitClass == null) {
+            fruitBox.add(fruit);
+            fruitClass = fruit.getClass();
+        } else if (fruitClass.equals(fruit.getClass())) {
+            fruitBox.add(fruit);
+        } else {
+            throw new RuntimeException("В коробку нельзя складывать разные виды фруктов");
+        }
+
+    }
 
     public double getWeight() {
-        if (fruitBox.get(0) instanceof Apple) { // предполагаем, что все фрукты в одной корзине одинаковые
-            return fruitBox.size();
-        } else if (fruitBox.get(0) instanceof Orange) {
-            return fruitBox.size() * 1.5; // здесь можно использовать вес из класса фрукт?
-        }
-        return 0;
+        double weight = 0;
+            for (T fruit : fruitBox) {
+                weight = weight + fruit.getWeight();
+            }
+            return weight;
     }
 
     public boolean compare (Box box) {
@@ -34,8 +38,8 @@ public class Box <T extends Fruit> {
     public void transfer (Box <T> newBox) {
         for (T fruit : this.fruitBox) {
             newBox.add(fruit);
-            this.fruitBox.remove(fruit);
         }
+        this.fruitBox.clear();
     }
 }
 
