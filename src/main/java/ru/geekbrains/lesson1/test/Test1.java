@@ -17,7 +17,6 @@ public class Test1 {
         print(list);
 
     }
-
     public static void change(Object [] array) {
         Object current = array[0];
         array[0] = array[1];
@@ -29,10 +28,6 @@ public class Test1 {
         String next = list.get(1);
         list.set(0,next);
         list.set(1,current);
-    }
-
-    public static void print(List <? extends Object> list) { // wildcard позволяет добавлять в метод любой лист
-        System.out.println("print");
     }
     // правильно делать параметризованные методы:
 //        public static <T> void change(T [] array) {
@@ -46,5 +41,38 @@ public class Test1 {
 //            list.set(0,next);
 //            list.set(1,current);
 //        }
+    public static void print(List <? extends Object> list) { // wildcard позволяет добавлять в метод любой лист
+        System.out.println("print");
+    }
+    public static <T> void print2(List<T> list) { // эти методы делают одно и то же
+        System.out.println("print");
+    }
+    // PECS
+//    producer - extends
+//    consumer - super
+//Collections.copy(dest, src)
+//destination - super Animal, src - extends Animal
+
+    // <T extends Animal> тут могут быть Animal и наследники
+    // <T super Animal> тут могут быть Animal и суперкласс Obgect
+
+//Фабричный метод - делать констуктор приватным и создавать экземпляры класса с помощью методов
+static class Zoo<T> {
+        private List<T> animals;
+        private Zoo(){this.animals = new ArrayList<>();}
+    public static <A> Zoo<A> create() {
+            return new Zoo<>();  // ??????????????????????????
+    }
 }
+// в параметризованном классе нельзя создать статический метод с тем же параметром, можно с другим
+
+// class Zoo<T>
+//List<T> animals;
+// Zoo <Movable> zoo = new Zoo() параметром может быть интерфейс, это значит, что все переменные в листе будут имплементировать
+// этот интерфейс
+    // как указать, какого типа будет переменная в листе?
+
+}
+
+
 
