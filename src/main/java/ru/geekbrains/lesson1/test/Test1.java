@@ -54,7 +54,7 @@ public class Test1 {
 //destination - super Animal, src - extends Animal
 
     // <T extends Animal> тут могут быть Animal и наследники
-    // <T super Animal> тут могут быть Animal и суперкласс Obgect
+    // <T super Animal> тут могут быть Animal и суперкласс Object
 
 //Фабричный метод - делать констуктор приватным и создавать экземпляры класса с помощью методов
 static class Zoo<T> {
