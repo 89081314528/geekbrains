@@ -1,8 +1,9 @@
 package ru.geekbrains;
 
 public class Apple extends Fruit{
+    public static final double WEIGHT = 1;
     public double getWeight() { // нет поля, поэтому не расходуется память
-        return 1;
+        return WEIGHT;
     }
 
     public String toString() {
