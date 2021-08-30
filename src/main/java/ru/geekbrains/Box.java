@@ -1,8 +1,13 @@
 package ru.geekbrains;
 import java.util.ArrayList;
 public class Box <T extends Fruit> {
-    final ArrayList<T> fruitBox;
-    Class fruitClass;
+    private final ArrayList<T> fruitBox;
+
+    public ArrayList<T> getFruitBox() {
+        return fruitBox;
+    }
+
+    private Class fruitClass;
 
     public Box() {
         this.fruitBox = new ArrayList<>();

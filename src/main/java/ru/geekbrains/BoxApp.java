@@ -32,7 +32,7 @@ public class BoxApp {
         System.out.println(orangeBox.getWeight());
         System.out.println(appleBox.compare(orangeBox));
         appleBox.transfer(appleBox2);
-        System.out.println(appleBox.fruitBox);
-        System.out.println(appleBox2.fruitBox);
+        System.out.println(appleBox.getFruitBox());
+        System.out.println(appleBox2.getFruitBox());
     }
 }
