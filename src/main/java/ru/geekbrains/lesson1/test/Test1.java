@@ -58,20 +58,22 @@ public class Test1 {
 
 //Фабричный метод - делать констуктор приватным и создавать экземпляры класса с помощью методов
 static class Zoo<T> {
-        private List<T> animals;
-        private Zoo(){this.animals = new ArrayList<>();}
-    public static <A> Zoo<A> create() {
-            return new Zoo<>();  // ??????????????????????????
+    private List<T> animals;
+
+    private Zoo() {
+        this.animals = new ArrayList<>();
     }
-}
+
+    public static <A> Zoo<A> create() {
+        return new Zoo<>();  // когда мы создадим Zoo с помощью метода, А подставится в Т
+    }
 // в параметризованном классе нельзя создать статический метод с тем же параметром, можно с другим
 
 // class Zoo<T>
 //List<T> animals;
 // Zoo <Movable> zoo = new Zoo() параметром может быть интерфейс, это значит, что все переменные в листе будут имплементировать
 // этот интерфейс
-    // как указать, какого типа будет переменная в листе?
-
+}
 }
 
 
