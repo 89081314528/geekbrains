@@ -3,7 +3,7 @@ package ru.geekbrains.lesson5;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Semaphore;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Lesson5 {
     public static final int CARS_COUNT = 4;
@@ -15,7 +15,7 @@ public class Lesson5 {
         for (int i = 0; i < cars.length; i++) {
             cars[i] = new Car(race, 20 + (int) (Math.random() * 10));
         }
-        final CountDownLatch cdl = new CountDownLatch(CARS_COUNT);
+        final CountDownLatch cdl = new CountDownLatch(CARS_COUNT); // ждет когда все машины подготовятся к гонке
 //        CyclicBarrier cyclicBarrier = new CyclicBarrier(3); // как он работает??
         for (int i = 0; i < cars.length; i++) {
             int finalI = i;
@@ -39,7 +39,7 @@ public class Lesson5 {
         final CountDownLatch cdl2 = new CountDownLatch(CARS_COUNT); // ждет завершения гонки всеми участниками и печатает
         // что гонка завершена
         final CountDownLatch cdl3 = new CountDownLatch(1); // ждет победителя и печатает только одного
-        AtomicInteger winner = new AtomicInteger();
+        AtomicReference<Singleton> singleton = null;
         for (int i = 0; i < cars.length; i++) {
             int finalI = i;
             new Thread(() -> {
@@ -55,34 +55,26 @@ public class Lesson5 {
                         }
                         race.getStages().get(j).go(cars[a]);
                         race.getStages().get(j).end(cars[a]);
-                        if (j == race.getStages().size() - 1) {
-                            cdl3.countDown();
-                            try {
-                                cdl3.await();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            System.out.println("участник " + cars[a].getName()  + " победила");
-                        }
                         smp.release();
                     } else {
                         race.getStages().get(j).go(cars[a]);
                         race.getStages().get(j).end(cars[a]);
-                        if (j == race.getStages().size() - 1) {
-                            cdl3.countDown();
-                            try {
-                                cdl3.await();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            System.out.println("участник " + cars[a].getName()  + " победила");
-                        }
+                    }
+                    if (j == race.getStages().size() - 1) { // здесь надо запомнить номер победителя один раз
+                        singleton.set(new Singleton(a + 1));
+//                        cdl3.countDown();
                     }
                 }
                 cdl2.countDown();
             }).start();
         }
+//        try {
+//            cdl3.await();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         cdl2.await();
+        System.out.println("участник " + singleton.get().getWinner() + " победил"); // как узнать номер участника?
         System.out.println("ВАЖНОЕ ОБЪЯВЛЕНИЕ >>> Гонка закончилась!!!");
     }
 }
