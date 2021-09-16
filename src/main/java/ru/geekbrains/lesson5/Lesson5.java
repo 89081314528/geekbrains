@@ -64,7 +64,7 @@ public class Lesson5 {
                         if (lock == null) {
                             synchronized (Lesson5.class) {
                                 if (lock == null) {
-                                    System.out.println("участник " + (a + 1) + " победил");
+                                    System.out.println(cars[a].getName() + " победил");
                                     lock = new Object();
                                 }
                             }
