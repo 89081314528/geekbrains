@@ -7,6 +7,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class Lesson5 {
     public static final int CARS_COUNT = 4;
+    public static volatile Object lock = null;
 
     public static void main(String[] args) throws InterruptedException, BrokenBarrierException {
         System.out.println("ВАЖНОЕ ОБЪЯВЛЕНИЕ >>> Подготовка!!!");
@@ -38,43 +39,42 @@ public class Lesson5 {
         Semaphore smp = new Semaphore(2); // в тоннеле могут находиться одновременно 2 машины
         final CountDownLatch cdl2 = new CountDownLatch(CARS_COUNT); // ждет завершения гонки всеми участниками и печатает
         // что гонка завершена
-        final CountDownLatch cdl3 = new CountDownLatch(1); // ждет победителя и печатает только одного
-        AtomicReference<Singleton> singleton = null;
+
         for (int i = 0; i < cars.length; i++) {
             int finalI = i;
             new Thread(() -> {
                 int a = finalI;
                 for (int j = 0; j < race.getStages().size(); j++) {
-                    if (race.getStages().get(j).getClass().equals(Tunnel.class)) {
-                        System.out.println("!!!!!!!!!!!!!!!!!!!");
-                        race.getStages().get(j).wait(cars[a]);
+                    Stage stage = race.getStages().get(j);
+                    if (stage.getClass().equals(Tunnel.class)) {
+                        stage.wait(cars[a]);
                         try {
                             smp.acquire();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        race.getStages().get(j).go(cars[a]);
-                        race.getStages().get(j).end(cars[a]);
+                        stage.go(cars[a]);
+                        stage.end(cars[a]);
                         smp.release();
                     } else {
-                        race.getStages().get(j).go(cars[a]);
-                        race.getStages().get(j).end(cars[a]);
+                        stage.go(cars[a]);
+                        stage.end(cars[a]);
                     }
-                    if (j == race.getStages().size() - 1) { // здесь надо запомнить номер победителя один раз
-                        singleton.set(new Singleton(a + 1));
-//                        cdl3.countDown();
+                    if (j == race.getStages().size() - 1) {
+                        if (lock == null) {
+                            synchronized (Lesson5.class) {
+                                if (lock == null) {
+                                    System.out.println("участник " + (a + 1) + " победил");
+                                    lock = new Object();
+                                }
+                            }
+                        }
                     }
                 }
                 cdl2.countDown();
             }).start();
         }
-//        try {
-//            cdl3.await();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
         cdl2.await();
-        System.out.println("участник " + singleton.get().getWinner() + " победил"); // как узнать номер участника?
         System.out.println("ВАЖНОЕ ОБЪЯВЛЕНИЕ >>> Гонка закончилась!!!");
     }
 }
