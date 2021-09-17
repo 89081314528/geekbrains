@@ -2,6 +2,7 @@ package ru.geekbrains.lesson5;
 
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -27,12 +28,12 @@ public class Lesson5 {
                     Thread.sleep(500 + (int) (Math.random() * 800));
                     System.out.println(cars[finalI].getName() + " готов");
                     cdl.countDown();
-//                    cyclicBarrier.await();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }).start();
         }
+//        cyclicBarrier.await();
         cdl.await();
         System.out.println("ВАЖНОЕ ОБЪЯВЛЕНИЕ >>> Гонка началась!!!");
 
@@ -61,9 +62,9 @@ public class Lesson5 {
                         stage.end(cars[a]);
                     }
                     if (j == race.getStages().size() - 1) {
-                        if (lock == null) {
-                            synchronized (Lesson5.class) {
-                                if (lock == null) {
+                        if (lock == null) {   // может оказаться одновременно несколько победителей
+                            synchronized (Lesson5.class) {  // сюда зайдет только один поток и поменяет значение lock
+                                if (lock == null) {         // для следующего потока значение lock уже будет не null
                                     System.out.println(cars[a].getName() + " победил");
                                     lock = new Object();
                                 }
@@ -76,5 +77,6 @@ public class Lesson5 {
         }
         cdl2.await();
         System.out.println("ВАЖНОЕ ОБЪЯВЛЕНИЕ >>> Гонка закончилась!!!");
+        
     }
 }
