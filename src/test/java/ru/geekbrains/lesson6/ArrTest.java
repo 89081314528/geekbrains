@@ -23,7 +23,7 @@ public class ArrTest {
     @Test
     public void shouldReturnArr() {
         final int[] newArr = arr.selectAfterLastFour(new int[]{1, 3, 4, 5, 6, 4, 7, 8, 4, 3, 2, 7});
-        assertArrayEquals(new int[]{4, 3, 2, 7}, newArr);
+        assertArrayEquals(new int[]{3, 2, 7}, newArr);
     }
 
     @Test
@@ -41,9 +41,9 @@ public class ArrTest {
 
     public static Stream<Arguments> dataForArray() {
         List<Arguments> out = new ArrayList<>();
-        out.add(Arguments.arguments(new int[]{1, 1, 4}, new int[]{4}));
-        out.add(Arguments.arguments(new int[]{2, 2, 2, 4, 3}, new int[]{4, 3}));
-        out.add(Arguments.arguments(new int[]{1, 3, 4, 5, 6, 4, 7, 8, 4, 3, 2, 7}, new int[]{4, 3, 2, 7}));
+        out.add(Arguments.arguments(new int[]{1, 1, 4}, new int[]{}));
+        out.add(Arguments.arguments(new int[]{2, 2, 2, 4, 3}, new int[]{3}));
+        out.add(Arguments.arguments(new int[]{1, 3, 4, 5, 6, 4, 7, 8, 4, 3, 2, 7}, new int[]{3, 2, 7}));
         return out.stream();
     }
 

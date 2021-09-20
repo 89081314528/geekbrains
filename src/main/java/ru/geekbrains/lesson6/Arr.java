@@ -22,15 +22,15 @@ public class Arr {
                 indexLastFour = i;
             }
         }
+
         if (countFours == 0) {
             throw new RuntimeException("bad array");
         }
-        int newArraySize = array.length - indexLastFour;
+        int newArraySize = array.length - indexLastFour - 1;
         int[] newArray = new int[newArraySize];
-        for (int i = 0; i < newArraySize; i++) {
-                newArray[i] = array[indexLastFour + i];
-
-        }
+            for (int i = 0; i < newArraySize; i++) {
+                newArray[i] = array[indexLastFour + 1 + i];
+            }
         return newArray;
     }
 
