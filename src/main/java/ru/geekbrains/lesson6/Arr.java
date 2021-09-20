@@ -11,13 +11,9 @@ import java.sql.Array;
  * 2. Написать метод, который проверяет состав массива из чисел 1 и 4. Если в нем нет хоть одной четверки или единицы,
  * то метод вернет false; Написать набор тестов для этого метода (по 3-4 варианта входных данных).
  */
-public class Lesson6 {
-    public static void main(String[] args) {
-        int[] array1 = {1, 3, 4, 5, 6};
-        System.out.println(selectAfterLastFour(array1));
-    }
+public class Arr {
 
-    public static int[] selectAfterLastFour(int[] array) {
+    public int[] selectAfterLastFour(int[] array) {
         int countFours = 0;
         int indexLastFour = 0;
         for (int i = 0; i < array.length; i++) {
@@ -26,15 +22,36 @@ public class Lesson6 {
                 indexLastFour = i;
             }
         }
-        int newArraySize = array.length - indexLastFour;
-        int[] newArray = new int[newArraySize]; // проверить
         if (countFours == 0) {
-            // exeption
-        } else {
-            for (int i = 0; i < newArraySize; i++) {
+            throw new RuntimeException("bad array");
+        }
+        int newArraySize = array.length - indexLastFour;
+        int[] newArray = new int[newArraySize];
+        for (int i = 0; i < newArraySize; i++) {
                 newArray[i] = array[indexLastFour + i];
-            }
+
         }
         return newArray;
+    }
+
+    public boolean consistOneTwo(int[] arr) {
+        int countOne = 0;
+        int countFour = 0;
+        int countOther = 0;
+        for (int i : arr) {
+            if (i == 1) {
+                countOne ++;
+            } else if (i == 4) {
+                countFour ++;
+            } else {
+                countOther ++;
+            }
+        }
+
+        if (countOne > 0 && countFour > 0 && countOther == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
